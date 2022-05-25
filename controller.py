@@ -11,3 +11,6 @@ class Controller:
             return None
 
         return self.move_queue.pop(0)
+
+    def clear_queue(self):
+        self.move_queue.clear()

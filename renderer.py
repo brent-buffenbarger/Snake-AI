@@ -6,6 +6,7 @@ class Renderer:
     def __init__(self, window, board):
         self.window = window
         self.board = board
+        self.font = pygame.font.SysFont('Arial', 30)
 
     # Function used to draw our checkered game board
     def draw_board(self):
@@ -38,8 +39,23 @@ class Renderer:
                 # Add the tile to the canvas
                 pygame.draw.rect(self.window, color, pygame.Rect(x_pos, y_pos, TILE_WIDTH, TILE_HEIGHT))
 
+    # Function to draw the score of the game
+    def draw_score(self, score):
+        text = self.font.render(f'Score: {score}', False, (255, 255, 255))
+        self.window.blit(text, (10, 10))
+
+    # Function to draw the game_over text
+    def draw_game_over_text(self):
+        text = self.font.render('Press \'Space\' to start a new game.', False, (255, 255, 255))
+        self.window.blit(text, text.get_rect(center=self.window.get_rect().center))
+
     # Define a draw function to handle our rendering
-    def draw(self):
+    def draw(self, score, game_over):
         self.window.fill(BACKGROUND_COLOR)  # Set the background color of the window
         self.draw_board()                   # Draw the current state of the board
+        self.draw_score(score)
+
+        if game_over:
+            self.draw_game_over_text()
+
         pygame.display.update()             # Update our display to reflect changes on screen
